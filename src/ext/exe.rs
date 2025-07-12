@@ -336,6 +336,13 @@ impl Command for CommandTailwind {
                 version,
                 self.name()
             )),
+            ("windows", "aarch64") => Ok(format!(
+                "https://github.com/{}/{}/releases/download/{}/{}-windows-x64.exe",
+                self.github_owner(),
+                self.github_repo(),
+                version,
+                self.name()
+            )),
             ("macos", "x86_64") => Ok(format!(
                 "https://github.com/{}/{}/releases/download/{}/{}-macos-x64",
                 self.github_owner(),
@@ -453,6 +460,12 @@ impl Command for CommandSass {
                         self.github_repo(), version, version
                     )
                 }
+                ("windows", "aarch64") => {
+                    format!(
+                        "https://github.com/sass/{}/releases/download/{}/dart-sass-{}-windows-arm64.tar.gz",
+                        self.github_repo(), version, version,
+                    )
+                }
                 ("macos" | "linux", "x86_64") => {
                     format!(
                         "https://github.com/sass/{}/releases/download/{}/dart-sass-{}-{}-x64.tar.gz",
@@ -524,6 +537,7 @@ impl Command for CommandWasmOpt {
         );
         match (target_os, target_arch) {
             ("windows", "x86_64") => Ok(format!("{base_url}-x86_64-windows.tar.gz")),
+            ("windows", "aarch64") => Ok(format!("{base_url}-x86_64-windows.tar.gz")),
             ("macos", "x86_64") => Ok(format!("{base_url}-x86_64-macos.tar.gz")),
             ("macos", "aarch64") => Ok(format!("{base_url}-arm64-macos.tar.gz")),
             ("macos", "arm64") => Ok(format!("{base_url}-arm64-macos.tar.gz")),
